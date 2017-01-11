@@ -1,7 +1,6 @@
 package com.example.sebastian.mockdata.adapters;
 
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,7 +21,7 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.MyViewHolder> 
 
     private List<Data> dataList;
 
-    public DataAdapter(List<Data> dataList){
+    public DataAdapter(List<Data> dataList) {
         this.dataList = dataList;
     }
 
@@ -35,8 +34,7 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.MyViewHolder> 
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
-        for(int i=0; i<dataList.size(); i++){
-            Log.d("DataAdapter", dataList.get(i).getName());
+        for (int i = 0; i < dataList.size(); i++) {
         }
         holder.name.setText(dataList.get(position).getName());
         holder.surname.setText(dataList.get(position).getSurname());
@@ -44,8 +42,7 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.MyViewHolder> 
 
     @Override
     public int getItemCount() {
-    return dataList.size();
-
+        return dataList.size();
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {

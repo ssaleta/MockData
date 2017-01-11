@@ -4,18 +4,14 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
-
 import com.example.sebastian.mockdata.model.Data;
-
 import java.util.List;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class DataActivity extends AppCompatActivity {
 
     private static String TAG = DataActivity.class.toString();
-
 
     @BindView(R.id.name)
     TextView name;

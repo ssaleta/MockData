@@ -1,11 +1,9 @@
 package com.example.sebastian.mockdata;
 
 import com.example.sebastian.mockdata.model.Data;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,9 +28,6 @@ public class JSONParser {
     private JSONArray dataJsonArray;
     private Data data;
     private List<Data> dataList = new ArrayList<Data>();
-
-
-    public JSONParser(){}
 
     public JSONParser(String json) {
         this.json = json;

@@ -11,7 +11,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.example.sebastian.mockdata.adapters.DataAdapter;
@@ -39,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private DataAdapter dataAdapter;
     private HTTPRequestHandler httpRequestHandler;
+    private String jsonTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +48,11 @@ public class MainActivity extends AppCompatActivity {
         initializeRecyclerView();
         httpRequestHandler = HTTPRequestHandler.getInstance();
         httpRequestHandler.init(getApplicationContext());
+        if (savedInstanceState != null && savedInstanceState.containsKey("list")) {
+            dataList = savedInstanceState.getParcelableArrayList("list");
+            jsonTitle = savedInstanceState.getString("title");
+            initializeView(dataList, jsonTitle);
+        }
         downloadBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -65,15 +70,18 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
-        // Read values from the "savedInstanceState"
+        if (savedInstanceState != null && savedInstanceState.containsKey("list")) {
+            dataList = savedInstanceState.getParcelableArrayList("list");
+            jsonTitle = savedInstanceState.getString("title");
+            initializeView(dataList, jsonTitle);
+        }
     }
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
-        // Save the values you need into "outState"
         super.onSaveInstanceState(outState);
-
-
+        outState.putParcelableArrayList("list", (ArrayList<? extends Parcelable>) dataList);
+        outState.putString("title", jsonTitle);
     }
 
 
@@ -107,11 +115,11 @@ public class MainActivity extends AppCompatActivity {
         JSONParser jsonParser = new JSONParser(json);
         jsonParser.parse();
         dataList = jsonParser.getDataList();
-        String jsonTitle = jsonParser.getTitle();
+        jsonTitle = jsonParser.getTitle();
         initializeView(dataList, jsonTitle);
     }
 
-    public void initializeView(List<Data> dataList, String jsonTitle){
+    public void initializeView(List<Data> dataList, String jsonTitle) {
         dataAdapter = new DataAdapter(dataList);
         recyclerView.setAdapter(dataAdapter);
         title.setText(jsonTitle);

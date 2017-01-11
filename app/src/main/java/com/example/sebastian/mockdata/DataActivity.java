@@ -39,7 +39,7 @@ public class DataActivity extends AppCompatActivity {
         Intent intent = getIntent();
         return intent.getExtras();
     }
-    
+
     private void initializeView(Bundle bundle){
         position = bundle.getInt("position");
         dataList = bundle.getParcelableArrayList("dataList");

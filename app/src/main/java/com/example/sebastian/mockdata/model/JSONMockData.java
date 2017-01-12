@@ -1,23 +1,16 @@
-package com.example.sebastian.mockdata;
-
-import com.example.sebastian.mockdata.model.User;
+package com.example.sebastian.mockdata.model;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Sebastian on 2017-01-09.
+ * Created by Sebastian on 2017-01-12.
  */
-public class JSONParser {
-
-    private static String TAG = JSONParser.class.toString();
-    public String title;
-    public String[] name;
-    public String[] surname;
-    public String[] country;
+public class JSONMockData {
 
     private static String KEY_TITLE = "title";
     private static String KEY_JSONARRAY = "user";
@@ -25,16 +18,15 @@ public class JSONParser {
     private static String KEY_LAST_NAME = "last_name";
     private static String KEY_COUNTRY = "country";
 
-    private String json;
+    public String title;
+    public String[] name;
+    public String[] surname;
+    public String[] country;
     private JSONArray dataJsonArray;
     private User user;
     private List<User> userList = new ArrayList<User>();
 
-    public JSONParser(String json) {
-        this.json = json;
-    }
-
-    protected void parse(){
+    public void initializeFromJson(String json){
         JSONObject jsonObject = null;
         try{
             jsonObject = new JSONObject(json);
@@ -56,13 +48,6 @@ public class JSONParser {
         }
     }
 
-    public List<User> getUserList(){
-        return userList;
-    }
-
-    private static String getString(String tagName, JSONObject jsonObject) throws JSONException {
-        return jsonObject.getString(tagName);
-    }
 
     public String getTitle() {
         return title;
@@ -70,5 +55,13 @@ public class JSONParser {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public List<User> getUserList(){
+        return userList;
+    }
+
+    private static String getString(String tagName, JSONObject jsonObject) throws JSONException {
+        return jsonObject.getString(tagName);
     }
 }

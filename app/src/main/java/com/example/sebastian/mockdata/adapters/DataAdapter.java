@@ -37,7 +37,7 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.MyViewHolder> 
         for (int i = 0; i < userList.size(); i++) {
         }
         holder.name.setText(userList.get(position).getName());
-        holder.surname.setText(userList.get(position).getLastName());
+        holder.lastName.setText(userList.get(position).getLastName());
     }
 
     @Override
@@ -48,8 +48,8 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.MyViewHolder> 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.name)
         TextView name;
-        @BindView(R.id.surname)
-        TextView surname;
+        @BindView(R.id.lastName)
+        TextView lastName;
 
         public MyViewHolder(View itemView) {
             super(itemView);

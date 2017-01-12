@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.widget.TextView;
 import com.example.sebastian.mockdata.model.User;
 
-import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -21,8 +20,8 @@ public class UserDetailsActivity extends AppCompatActivity {
     @BindView(R.id.country)
     TextView country;
 
-    private int position;
-    private List<User> userList;
+    private User user;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,10 +37,9 @@ public class UserDetailsActivity extends AppCompatActivity {
     }
 
     private void initializeView(Bundle bundle){
-        position = bundle.getInt("position");
-        userList = bundle.getParcelableArrayList("userList");
-        name.setText(userList.get(position).getName());
-        lastName.setText(userList.get(position).getLastName());
-        country.setText(userList.get(position).getCountry());
+        user = bundle.getParcelable("user");
+        name.setText(user.getName());
+        lastName.setText(user.getLastName());
+        country.setText(user.getCountry());
     }
 }

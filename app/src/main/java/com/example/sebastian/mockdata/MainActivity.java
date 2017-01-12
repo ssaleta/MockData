@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.example.sebastian.mockdata.adapters.DataAdapter;
+import com.example.sebastian.mockdata.model.JSONMockData;
 import com.example.sebastian.mockdata.model.User;
 import com.example.sebastian.mockdata.service.HTTPRequestHandler;
 import com.example.sebastian.mockdata.support.ItemClickSupport;
@@ -34,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
     Button downloadBtn;
     @BindView(R.id.title)
     TextView title;
+    private User user;
     private List<User> userList = new ArrayList<>();
     private RecyclerView recyclerView;
     private DataAdapter dataAdapter;
@@ -48,11 +50,6 @@ public class MainActivity extends AppCompatActivity {
         initializeRecyclerView();
         httpRequestHandler = HTTPRequestHandler.getInstance();
         httpRequestHandler.init(getApplicationContext());
-        if (savedInstanceState != null && savedInstanceState.containsKey("list")) {
-            userList = savedInstanceState.getParcelableArrayList("list");
-            jsonTitle = savedInstanceState.getString("title");
-            initializeView(userList, jsonTitle);
-        }
         downloadBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -62,7 +59,8 @@ public class MainActivity extends AppCompatActivity {
         ItemClickSupport.addTo(recyclerView).setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
             @Override
             public void onItemClicked(RecyclerView recyclerView, int position, View v) {
-                goToDataActivity(position);
+                getUser(position);
+                goToDataActivity(user);
             }
         });
     }
@@ -112,10 +110,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void showJSON(String json) {
-        JSONParser jsonParser = new JSONParser(json);
-        jsonParser.parse();
-        userList = jsonParser.getUserList();
-        jsonTitle = jsonParser.getTitle();
+        JSONMockData jsonMockData = new JSONMockData();
+        jsonMockData.initializeFromJson(json);
+        userList = jsonMockData.getUserList();
+        jsonTitle = jsonMockData.getTitle();
         initializeView(userList, jsonTitle);
     }
 
@@ -125,12 +123,15 @@ public class MainActivity extends AppCompatActivity {
         title.setText(jsonTitle);
     }
 
-    public void goToDataActivity(int position) {
-        Intent dataIntent = new Intent(getApplicationContext(), UserDetailsActivity.class);
+    public void getUser(int position){
+      user = userList.get(position);
+    }
+
+    public void goToDataActivity(User user) {
+        Intent userDetailsIntent = new Intent(getApplicationContext(), UserDetailsActivity.class);
         Bundle extras = new Bundle();
-        extras.putInt("position", position);
-        extras.putParcelableArrayList("userList", (ArrayList<? extends Parcelable>) userList);
-        dataIntent.putExtras(extras);
-        startActivity(dataIntent);
+        extras.putParcelable("user", user);
+        userDetailsIntent.putExtras(extras);
+        startActivity(userDetailsIntent);
     }
 }

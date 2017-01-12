@@ -13,7 +13,7 @@ import java.util.List;
 public class JSONMockData {
 
     private static String KEY_TITLE = "title";
-    private static String KEY_JSONARRAY = "user";
+    private static String KEY_JSONARRAY = "data";
     private static String KEY_NAME = "name";
     private static String KEY_LAST_NAME = "last_name";
     private static String KEY_COUNTRY = "country";
@@ -22,7 +22,7 @@ public class JSONMockData {
     public String[] name;
     public String[] surname;
     public String[] country;
-    private JSONArray dataJsonArray;
+    private JSONArray usersJsonArray;
     private User user;
     private List<User> userList = new ArrayList<User>();
 
@@ -31,12 +31,12 @@ public class JSONMockData {
         try{
             jsonObject = new JSONObject(json);
             setTitle(jsonObject.getString(KEY_TITLE));
-            dataJsonArray = jsonObject.getJSONArray(KEY_JSONARRAY);
-            name = new String[dataJsonArray.length()];
-            surname = new String[dataJsonArray.length()];
-            country = new String[dataJsonArray.length()];
-            for(int i=0; i < dataJsonArray.length(); i++){
-                JSONObject object = dataJsonArray.getJSONObject(i);
+            usersJsonArray = jsonObject.getJSONArray(KEY_JSONARRAY);
+            name = new String[usersJsonArray.length()];
+            surname = new String[usersJsonArray.length()];
+            country = new String[usersJsonArray.length()];
+            for(int i=0; i < usersJsonArray.length(); i++){
+                JSONObject object = usersJsonArray.getJSONObject(i);
                 name[i] = getString(KEY_NAME, object);
                 surname[i] = getString(KEY_LAST_NAME, object);
                 country[i] = getString(KEY_COUNTRY,object);

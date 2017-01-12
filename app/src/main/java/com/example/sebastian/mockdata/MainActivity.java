@@ -14,7 +14,7 @@ import android.widget.Toast;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.example.sebastian.mockdata.adapters.DataAdapter;
-import com.example.sebastian.mockdata.model.Data;
+import com.example.sebastian.mockdata.model.User;
 import com.example.sebastian.mockdata.service.HTTPRequestHandler;
 import com.example.sebastian.mockdata.support.ItemClickSupport;
 
@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
     Button downloadBtn;
     @BindView(R.id.title)
     TextView title;
-    private List<Data> dataList = new ArrayList<>();
+    private List<User> userList = new ArrayList<>();
     private RecyclerView recyclerView;
     private DataAdapter dataAdapter;
     private HTTPRequestHandler httpRequestHandler;
@@ -49,9 +49,9 @@ public class MainActivity extends AppCompatActivity {
         httpRequestHandler = HTTPRequestHandler.getInstance();
         httpRequestHandler.init(getApplicationContext());
         if (savedInstanceState != null && savedInstanceState.containsKey("list")) {
-            dataList = savedInstanceState.getParcelableArrayList("list");
+            userList = savedInstanceState.getParcelableArrayList("list");
             jsonTitle = savedInstanceState.getString("title");
-            initializeView(dataList, jsonTitle);
+            initializeView(userList, jsonTitle);
         }
         downloadBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,16 +71,16 @@ public class MainActivity extends AppCompatActivity {
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
         if (savedInstanceState != null && savedInstanceState.containsKey("list")) {
-            dataList = savedInstanceState.getParcelableArrayList("list");
+            userList = savedInstanceState.getParcelableArrayList("list");
             jsonTitle = savedInstanceState.getString("title");
-            initializeView(dataList, jsonTitle);
+            initializeView(userList, jsonTitle);
         }
     }
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putParcelableArrayList("list", (ArrayList<? extends Parcelable>) dataList);
+        outState.putParcelableArrayList("list", (ArrayList<? extends Parcelable>) userList);
         outState.putString("title", jsonTitle);
     }
 
@@ -114,22 +114,22 @@ public class MainActivity extends AppCompatActivity {
     private void showJSON(String json) {
         JSONParser jsonParser = new JSONParser(json);
         jsonParser.parse();
-        dataList = jsonParser.getDataList();
+        userList = jsonParser.getUserList();
         jsonTitle = jsonParser.getTitle();
-        initializeView(dataList, jsonTitle);
+        initializeView(userList, jsonTitle);
     }
 
-    public void initializeView(List<Data> dataList, String jsonTitle) {
-        dataAdapter = new DataAdapter(dataList);
+    public void initializeView(List<User> userList, String jsonTitle) {
+        dataAdapter = new DataAdapter(userList);
         recyclerView.setAdapter(dataAdapter);
         title.setText(jsonTitle);
     }
 
     public void goToDataActivity(int position) {
-        Intent dataIntent = new Intent(getApplicationContext(), DataActivity.class);
+        Intent dataIntent = new Intent(getApplicationContext(), UserDetailsActivity.class);
         Bundle extras = new Bundle();
         extras.putInt("position", position);
-        extras.putParcelableArrayList("dataList", (ArrayList<? extends Parcelable>) dataList);
+        extras.putParcelableArrayList("userList", (ArrayList<? extends Parcelable>) userList);
         dataIntent.putExtras(extras);
         startActivity(dataIntent);
     }

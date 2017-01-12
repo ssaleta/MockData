@@ -4,14 +4,15 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
-import com.example.sebastian.mockdata.model.Data;
+import com.example.sebastian.mockdata.model.User;
+
 import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class DataActivity extends AppCompatActivity {
+public class UserDetailsActivity extends AppCompatActivity {
 
-    private static String TAG = DataActivity.class.toString();
+    private static String TAG = UserDetailsActivity.class.toString();
 
     @BindView(R.id.name)
     TextView name;
@@ -21,7 +22,7 @@ public class DataActivity extends AppCompatActivity {
     TextView country;
 
     private int position;
-    private List<Data> dataList;
+    private List<User> userList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,9 +39,9 @@ public class DataActivity extends AppCompatActivity {
 
     private void initializeView(Bundle bundle){
         position = bundle.getInt("position");
-        dataList = bundle.getParcelableArrayList("dataList");
-        name.setText(dataList.get(position).getName());
-        lastName.setText(dataList.get(position).getSurname());
-        country.setText(dataList.get(position).getCountry());
+        userList = bundle.getParcelableArrayList("userList");
+        name.setText(userList.get(position).getName());
+        lastName.setText(userList.get(position).getLastName());
+        country.setText(userList.get(position).getCountry());
     }
 }

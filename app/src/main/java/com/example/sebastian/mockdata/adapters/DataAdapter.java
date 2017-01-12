@@ -6,7 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.sebastian.mockdata.model.Data;
+import com.example.sebastian.mockdata.model.User;
 import com.example.sebastian.mockdata.R;
 
 import java.util.List;
@@ -19,10 +19,10 @@ import butterknife.ButterKnife;
  */
 public class DataAdapter extends RecyclerView.Adapter<DataAdapter.MyViewHolder> {
 
-    private List<Data> dataList;
+    private List<User> userList;
 
-    public DataAdapter(List<Data> dataList) {
-        this.dataList = dataList;
+    public DataAdapter(List<User> userList) {
+        this.userList = userList;
     }
 
 
@@ -34,15 +34,15 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.MyViewHolder> 
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
-        for (int i = 0; i < dataList.size(); i++) {
+        for (int i = 0; i < userList.size(); i++) {
         }
-        holder.name.setText(dataList.get(position).getName());
-        holder.surname.setText(dataList.get(position).getSurname());
+        holder.name.setText(userList.get(position).getName());
+        holder.surname.setText(userList.get(position).getLastName());
     }
 
     @Override
     public int getItemCount() {
-        return dataList.size();
+        return userList.size();
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {

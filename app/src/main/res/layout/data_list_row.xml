@@ -17,7 +17,7 @@
         android:text="Sebastian" />
 
     <TextView
-        android:id="@+id/surname"
+        android:id="@+id/lastName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"

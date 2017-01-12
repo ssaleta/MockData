@@ -1,6 +1,7 @@
 package com.example.sebastian.mockdata;
 
-import com.example.sebastian.mockdata.model.Data;
+import com.example.sebastian.mockdata.model.User;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -19,15 +20,15 @@ public class JSONParser {
     public String[] country;
 
     private static String KEY_TITLE = "title";
-    private static String KEY_JSONARRAY = "data";
+    private static String KEY_JSONARRAY = "user";
     private static String KEY_NAME = "name";
     private static String KEY_LAST_NAME = "last_name";
     private static String KEY_COUNTRY = "country";
 
     private String json;
     private JSONArray dataJsonArray;
-    private Data data;
-    private List<Data> dataList = new ArrayList<Data>();
+    private User user;
+    private List<User> userList = new ArrayList<User>();
 
     public JSONParser(String json) {
         this.json = json;
@@ -47,15 +48,15 @@ public class JSONParser {
                 name[i] = getString(KEY_NAME, object);
                 surname[i] = getString(KEY_LAST_NAME, object);
                 country[i] = getString(KEY_COUNTRY,object);
-                data = new Data(name[i],surname[i],country[i]);
-                dataList.add(data);
+                user = new User(name[i],surname[i],country[i]);
+                userList.add(user);
             }
         } catch (JSONException e) {
             e.printStackTrace();
         }
     }
-    public List<Data> getDataList(){
-        return dataList;
+    public List<User> getUserList(){
+        return userList;
     }
 
     private static String getString(String tagName, JSONObject jsonObject) throws JSONException {

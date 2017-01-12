@@ -6,48 +6,38 @@ import android.os.Parcelable;
 /**
  * Created by Sebastian on 2017-01-09.
  */
-public class Data implements Parcelable {
+public class User implements Parcelable {
 
-    private static String TAG = Data.class.toString();
+    private static String TAG = User.class.toString();
 
-    private String title;
     private String name;
-    private String surname;
+    private String lastName;
     private String country;
 
-
-    public Data (String name, String surname, String country){
+    public User(String name, String lastName, String country) {
         this.name = name;
-        this.surname = surname;
+        this.lastName = lastName;
         this.country = country;
     }
 
-    protected Data(Parcel in) {
-        title = in.readString();
+    protected User(Parcel in) {
+
         name = in.readString();
-        surname = in.readString();
+        lastName = in.readString();
         country = in.readString();
     }
 
-    public static final Creator<Data> CREATOR = new Creator<Data>() {
+    public static final Creator<User> CREATOR = new Creator<User>() {
         @Override
-        public Data createFromParcel(Parcel in) {
-            return new Data(in);
+        public User createFromParcel(Parcel in) {
+            return new User(in);
         }
 
         @Override
-        public Data[] newArray(int size) {
-            return new Data[size];
+        public User[] newArray(int size) {
+            return new User[size];
         }
     };
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
 
     public String getName() {
         return name;
@@ -57,12 +47,12 @@ public class Data implements Parcelable {
         this.name = name;
     }
 
-    public String getSurname() {
-        return surname;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setSurname(String surname) {
-        this.surname = surname;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getCountry() {
@@ -73,7 +63,6 @@ public class Data implements Parcelable {
         this.country = country;
     }
 
-
     @Override
     public int describeContents() {
         return 0;
@@ -81,9 +70,9 @@ public class Data implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(title);
+
         dest.writeString(name);
-        dest.writeString(surname);
+        dest.writeString(lastName);
         dest.writeString(country);
     }
 }
